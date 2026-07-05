@@ -6,25 +6,90 @@
     <title>Parallax Arc</title>
     <style>
       :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; background: #060713; color: #f5fbff; }
-      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: radial-gradient(circle at 20% 0%, rgba(67,255,210,.18), transparent 36rem), radial-gradient(circle at 82% 8%, rgba(255,125,233,.14), transparent 32rem), linear-gradient(135deg,#05040d,#0d102c 50%,#12061f); }
-      main { width: min(960px, calc(100vw - 32px)); border: 1px solid rgba(173,255,245,.18); border-radius: 28px; padding: 32px; background: rgba(9,12,31,.72); box-shadow: 0 24px 80px rgba(0,0,0,.35); }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100vh; background: radial-gradient(circle at 20% 0%, rgba(67,255,210,.18), transparent 36rem), radial-gradient(circle at 82% 8%, rgba(255,125,233,.14), transparent 32rem), linear-gradient(135deg,#05040d,#0d102c 50%,#12061f); }
+      main { width: min(1080px, calc(100vw - 28px)); margin: 0 auto; padding: 28px 0 44px; }
+      section { border: 1px solid rgba(173,255,245,.18); border-radius: 28px; padding: 24px; margin-bottom: 18px; background: rgba(9,12,31,.72); box-shadow: 0 24px 80px rgba(0,0,0,.35); }
       .eyebrow { color: #9efcff; text-transform: uppercase; letter-spacing: .16em; font-weight: 800; font-size: .76rem; }
       h1 { margin: 0; font-size: clamp(3rem, 10vw, 7rem); line-height: .9; letter-spacing: -.06em; }
       p { color: rgba(245,251,255,.76); font-size: 1.08rem; }
-      .stage { position: relative; min-height: 320px; border-radius: 20px; overflow: hidden; margin-top: 24px; background: linear-gradient(180deg,#07091f 0%,#161145 55%,#241233 100%); }
+      .stage { position: relative; min-height: 420px; border-radius: 20px; overflow: hidden; background: linear-gradient(180deg,#07091f 0%,#161145 55%,#241233 100%); }
       .moon { position: absolute; top: 44px; right: 98px; width: 84px; height: 84px; border: 2px solid #9efcff; border-radius: 50%; box-shadow: 0 0 42px rgba(158,252,255,.35); }
-      .terrain { position: absolute; left: 0; right: 0; bottom: 0; height: 130px; background: linear-gradient(180deg,#43ffd2 0%,#3369ff 16%,#1b0b38 74%,#05040d 100%); clip-path: polygon(0 38%,8% 30%,18% 48%,30% 20%,42% 36%,53% 28%,66% 50%,80% 24%,91% 42%,100% 28%,100% 100%,0 100%); }
-      .arc { position: absolute; left: 14%; bottom: 142px; width: 230px; height: 4px; transform: rotate(-36deg); transform-origin: left center; background: linear-gradient(90deg,#9efcff,transparent); box-shadow: 0 0 18px rgba(158,252,255,.8); }
-      .formula { margin-top: 18px; padding: 18px; border-radius: 18px; background: rgba(255,255,255,.06); }
+      .terrain { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(180deg,#43ffd2 0%,#3369ff 16%,#1b0b38 74%,#05040d 100%); clip-path: polygon(0 38%,8% 30%,18% 48%,30% 20%,42% 36%,53% 28%,66% 50%,80% 24%,91% 42%,100% 28%,100% 100%,0 100%); }
+      .pad { position: absolute; bottom: 118px; padding: .7rem 1rem; border-radius: 999px; font-weight: 900; color: #061018; box-shadow: 0 0 24px rgba(255,255,255,.22); }
+      .left { left: 10%; background: #7dffb2; }
+      .right { right: 10%; background: #ff7de9; }
+      .arc { position: absolute; left: 14%; bottom: 156px; width: 230px; height: 4px; transform-origin: left center; background: linear-gradient(90deg,#9efcff,transparent); box-shadow: 0 0 18px rgba(158,252,255,.8); }
+      .tag { position: absolute; left: 24px; top: 24px; padding: .65rem .9rem; border: 1px solid rgba(173,255,245,.22); border-radius: 999px; background: rgba(5,6,18,.58); color: #ccfff8; font-weight: 900; }
+      .controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      label { display: grid; gap: 10px; color: #d9fffb; font-weight: 800; }
+      input, select, button { font: inherit; }
+      input { width: 100%; accent-color: #9efcff; }
+      select { width: 100%; min-height: 42px; border: 1px solid rgba(173,255,245,.26); border-radius: 12px; background: rgba(5,6,18,.86); color: #f5fbff; padding: 0 .75rem; }
+      button { border: 1px solid rgba(173,255,245,.35); border-radius: 999px; padding: .85rem 1.2rem; background: linear-gradient(135deg,rgba(67,255,210,.22),rgba(51,105,255,.25)); color: #f5fbff; cursor: pointer; font-weight: 900; }
+      .formula p { margin: .35rem 0; }
+      @media (max-width: 900px) { .controls { grid-template-columns: 1fr 1fr; } }
+      @media (max-width: 650px) { .controls { grid-template-columns: 1fr; } .stage { min-height: 340px; } }
     </style>
   </head>
   <body>
     <main>
-      <div class="eyebrow">Parallax Labs / public MIT prototype</div>
-      <h1>Parallax Arc</h1>
-      <p>A neon browser arc game with formula receipts. The React/Vite source is in the repository root.</p>
-      <div class="stage"><div class="moon"></div><div class="arc"></div><div class="terrain"></div></div>
-      <div class="formula">Formula Lens: R = v² · sin(2θ) / g</div>
+      <section>
+        <div class="eyebrow">Parallax Labs / public MIT prototype</div>
+        <h1>Parallax Arc</h1>
+        <p>A neon browser arc game with formula receipts, distance intuition, and Parallax-style modes.</p>
+      </section>
+      <section>
+        <div class="stage" id="stage">
+          <div class="moon"></div>
+          <div class="terrain"></div>
+          <div class="pad left">Vessel</div>
+          <div class="pad right">Mirror</div>
+          <div class="arc" id="arc"></div>
+          <div class="tag" id="tag">turn 1 · drift 0.0</div>
+        </div>
+      </section>
+      <section class="controls">
+        <label>Angle <span id="angleText">45°</span><input id="angle" type="range" min="5" max="85" value="45"></label>
+        <label>Power <span id="powerText">50</span><input id="power" type="range" min="10" max="100" value="50"></label>
+        <label>Gravity <span id="gravityText">9.8</span><input id="gravity" type="range" min="4" max="18" step="0.1" value="9.8"></label>
+        <label>Mode <span id="modeText">Ledger Orb</span><select id="mode"><option value="ledger">Ledger Orb</option><option value="phi">Phi Arc</option><option value="janus">Janus Pulse</option></select></label>
+      </section>
+      <section class="formula">
+        <button id="turnButton">Log Arc</button>
+        <h2>Formula Lens</h2>
+        <p>R = v² · sin(2θ) / g</p>
+        <p id="velocityText">Mode-adjusted velocity: 50.00</p>
+        <p id="rangeText">Clean range estimate: 255.10 arc-units</p>
+      </section>
     </main>
+    <script>
+      const modes = { ledger: { label: 'Ledger Orb', scale: 1, color: '#9efcff' }, phi: { label: 'Phi Arc', scale: 1.18, color: '#ffe66d' }, janus: { label: 'Janus Pulse', scale: 0.86, color: '#ff7de9' } };
+      const state = { turn: 1 };
+      const $ = id => document.getElementById(id);
+      function update() {
+        const angle = Number($('angle').value);
+        const power = Number($('power').value);
+        const gravity = Number($('gravity').value);
+        const mode = modes[$('mode').value];
+        const theta = angle * Math.PI / 180;
+        const velocity = power * mode.scale;
+        const range = Math.max(0, velocity * velocity * Math.sin(2 * theta) / gravity);
+        const drift = Math.sin(state.turn * 1.618) * 7.5;
+        $('angleText').textContent = angle + '°';
+        $('powerText').textContent = power;
+        $('gravityText').textContent = gravity.toFixed(1);
+        $('modeText').textContent = mode.label;
+        $('velocityText').textContent = 'Mode-adjusted velocity: ' + velocity.toFixed(2);
+        $('rangeText').textContent = 'Clean range estimate: ' + range.toFixed(2) + ' arc-units';
+        $('tag').textContent = 'turn ' + state.turn + ' · drift ' + drift.toFixed(1);
+        $('arc').style.transform = 'rotate(' + (-angle) + 'deg) scaleX(' + (0.7 + power / 120).toFixed(2) + ')';
+        $('arc').style.background = 'linear-gradient(90deg,' + mode.color + ',transparent)';
+        $('arc').style.boxShadow = '0 0 18px ' + mode.color;
+      }
+      ['angle','power','gravity','mode'].forEach(id => $(id).addEventListener('input', update));
+      $('turnButton').addEventListener('click', () => { state.turn += 1; update(); });
+      update();
+    </script>
   </body>
 </html>
