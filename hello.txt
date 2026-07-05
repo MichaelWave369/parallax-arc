@@ -1,1 +1,1 @@
-hello parallax
+See README.md for the Parallax Arc project.
