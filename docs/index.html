@@ -1,9 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Parallax Arc v0.2.1 cache-bust: animated arc build -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Parallax Arc</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Parallax Arc v0.2.1</title>
     <style>
       :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; background: #060713; color: #f5fbff; }
       * { box-sizing: border-box; }
@@ -14,6 +18,7 @@
       h1 { margin: 0; font-size: clamp(3rem, 10vw, 7rem); line-height: .9; letter-spacing: -.06em; }
       h2 { margin: 0 0 .7rem; }
       p { color: rgba(245,251,255,.76); font-size: 1.08rem; }
+      .version { display: inline-block; margin-top: 12px; padding: .45rem .7rem; border: 1px solid rgba(173,255,245,.22); border-radius: 999px; color: #ccfff8; background: rgba(5,6,18,.35); font-weight: 900; }
       .stage { position: relative; min-height: 420px; border-radius: 20px; overflow: hidden; background: linear-gradient(180deg,#07091f 0%,#161145 55%,#241233 100%); }
       .stage::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle at 15% 22%, rgba(255,255,255,.28) 0 1px, transparent 2px), radial-gradient(circle at 58% 14%, rgba(255,255,255,.2) 0 1px, transparent 2px), radial-gradient(circle at 82% 33%, rgba(255,255,255,.22) 0 1px, transparent 2px); opacity: .55; }
       .moon { position: absolute; top: 44px; right: 98px; width: 84px; height: 84px; border: 2px solid #9efcff; border-radius: 50%; box-shadow: 0 0 42px rgba(158,252,255,.35); }
@@ -58,6 +63,7 @@
         <div class="eyebrow">Parallax Labs / public MIT prototype</div>
         <h1>Parallax Arc</h1>
         <p>A neon browser arc game with formula receipts, animated arcs, contact blooms, and continuity scoring.</p>
+        <span class="version">v0.2.1 animated arc build</span>
       </section>
       <section>
         <div class="stage" id="stage">
