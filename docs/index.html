@@ -12,24 +12,44 @@
       section { border: 1px solid rgba(173,255,245,.18); border-radius: 28px; padding: 24px; margin-bottom: 18px; background: rgba(9,12,31,.72); box-shadow: 0 24px 80px rgba(0,0,0,.35); }
       .eyebrow { color: #9efcff; text-transform: uppercase; letter-spacing: .16em; font-weight: 800; font-size: .76rem; }
       h1 { margin: 0; font-size: clamp(3rem, 10vw, 7rem); line-height: .9; letter-spacing: -.06em; }
+      h2 { margin: 0 0 .7rem; }
       p { color: rgba(245,251,255,.76); font-size: 1.08rem; }
       .stage { position: relative; min-height: 420px; border-radius: 20px; overflow: hidden; background: linear-gradient(180deg,#07091f 0%,#161145 55%,#241233 100%); }
+      .stage::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle at 15% 22%, rgba(255,255,255,.28) 0 1px, transparent 2px), radial-gradient(circle at 58% 14%, rgba(255,255,255,.2) 0 1px, transparent 2px), radial-gradient(circle at 82% 33%, rgba(255,255,255,.22) 0 1px, transparent 2px); opacity: .55; }
       .moon { position: absolute; top: 44px; right: 98px; width: 84px; height: 84px; border: 2px solid #9efcff; border-radius: 50%; box-shadow: 0 0 42px rgba(158,252,255,.35); }
-      .terrain { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(180deg,#43ffd2 0%,#3369ff 16%,#1b0b38 74%,#05040d 100%); clip-path: polygon(0 38%,8% 30%,18% 48%,30% 20%,42% 36%,53% 28%,66% 50%,80% 24%,91% 42%,100% 28%,100% 100%,0 100%); }
-      .pad { position: absolute; bottom: 118px; padding: .7rem 1rem; border-radius: 999px; font-weight: 900; color: #061018; box-shadow: 0 0 24px rgba(255,255,255,.22); }
+      .terrain { position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(180deg,#43ffd2 0%,#3369ff 16%,#1b0b38 74%,#05040d 100%); clip-path: polygon(0 38%,8% 30%,18% 48%,30% 20%,42% 36%,53% 28%,66% 50%,80% 24%,91% 42%,100% 28%,100% 100%,0 100%); filter: drop-shadow(0 -22px 44px rgba(67,255,210,.12)); }
+      .pad { position: absolute; bottom: 118px; padding: .7rem 1rem; border-radius: 999px; font-weight: 900; color: #061018; box-shadow: 0 0 24px rgba(255,255,255,.22); transition: transform .2s ease, filter .2s ease; }
+      .pad.active { transform: translateY(-7px) scale(1.05); filter: brightness(1.1); }
       .left { left: 10%; background: #7dffb2; }
       .right { right: 10%; background: #ff7de9; }
-      .arc { position: absolute; left: 14%; bottom: 156px; width: 230px; height: 4px; transform-origin: left center; background: linear-gradient(90deg,#9efcff,transparent); box-shadow: 0 0 18px rgba(158,252,255,.8); }
+      .aim { position: absolute; left: 14%; bottom: 156px; width: 230px; height: 4px; transform-origin: left center; background: linear-gradient(90deg,#9efcff,transparent); box-shadow: 0 0 18px rgba(158,252,255,.8); }
+      .orb { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #9efcff; box-shadow: 0 0 26px #9efcff, 0 0 60px rgba(158,252,255,.45); transform: translate(-50%,-50%); opacity: 0; pointer-events: none; }
+      .ghost { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.8); transform: translate(-50%,-50%); pointer-events: none; opacity: .55; }
+      .bloom { position: absolute; width: 18px; height: 18px; border: 2px solid #9efcff; border-radius: 50%; transform: translate(-50%,-50%) scale(.25); opacity: 0; pointer-events: none; animation: bloom .8s ease-out forwards; box-shadow: 0 0 26px rgba(158,252,255,.7); }
+      @keyframes bloom { 0% { opacity: .95; transform: translate(-50%,-50%) scale(.25); } 100% { opacity: 0; transform: translate(-50%,-50%) scale(5.4); } }
       .tag { position: absolute; left: 24px; top: 24px; padding: .65rem .9rem; border: 1px solid rgba(173,255,245,.22); border-radius: 999px; background: rgba(5,6,18,.58); color: #ccfff8; font-weight: 900; }
+      .scoreboard { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center; margin-top: 18px; }
+      .score { border: 1px solid rgba(173,255,245,.18); border-radius: 20px; padding: 14px; background: rgba(5,6,18,.44); }
+      .score strong { display: flex; justify-content: space-between; gap: 12px; }
+      .bar { height: 12px; margin-top: 10px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.1); }
+      .fill { height: 100%; width: 100%; border-radius: inherit; transition: width .4s ease; }
+      .vesselFill { background: linear-gradient(90deg,#7dffb2,#9efcff); }
+      .mirrorFill { background: linear-gradient(90deg,#ff7de9,#ffe66d); }
+      .turnBadge { text-align: center; color: #ccfff8; font-weight: 900; }
       .controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
       label { display: grid; gap: 10px; color: #d9fffb; font-weight: 800; }
       input, select, button { font: inherit; }
       input { width: 100%; accent-color: #9efcff; }
       select { width: 100%; min-height: 42px; border: 1px solid rgba(173,255,245,.26); border-radius: 12px; background: rgba(5,6,18,.86); color: #f5fbff; padding: 0 .75rem; }
       button { border: 1px solid rgba(173,255,245,.35); border-radius: 999px; padding: .85rem 1.2rem; background: linear-gradient(135deg,rgba(67,255,210,.22),rgba(51,105,255,.25)); color: #f5fbff; cursor: pointer; font-weight: 900; }
+      button:disabled { cursor: wait; opacity: .55; }
+      .action { display: flex; align-items: center; gap: 18px; justify-content: space-between; }
+      .modeNote { text-align: right; color: rgba(245,251,255,.72); }
       .formula p { margin: .35rem 0; }
-      @media (max-width: 900px) { .controls { grid-template-columns: 1fr 1fr; } }
-      @media (max-width: 650px) { .controls { grid-template-columns: 1fr; } .stage { min-height: 340px; } }
+      .readout { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 14px; }
+      .chip { border: 1px solid rgba(173,255,245,.16); border-radius: 16px; padding: 12px; background: rgba(5,6,18,.34); color: rgba(245,251,255,.78); }
+      @media (max-width: 900px) { .controls, .readout { grid-template-columns: 1fr 1fr; } .scoreboard { grid-template-columns: 1fr; } }
+      @media (max-width: 650px) { .controls, .readout { grid-template-columns: 1fr; } .stage { min-height: 340px; } .action { align-items: flex-start; flex-direction: column; } .modeNote { text-align: left; } }
     </style>
   </head>
   <body>
@@ -37,16 +57,22 @@
       <section>
         <div class="eyebrow">Parallax Labs / public MIT prototype</div>
         <h1>Parallax Arc</h1>
-        <p>A neon browser arc game with formula receipts, distance intuition, and Parallax-style modes.</p>
+        <p>A neon browser arc game with formula receipts, animated arcs, contact blooms, and continuity scoring.</p>
       </section>
       <section>
         <div class="stage" id="stage">
           <div class="moon"></div>
           <div class="terrain"></div>
-          <div class="pad left">Vessel</div>
-          <div class="pad right">Mirror</div>
-          <div class="arc" id="arc"></div>
+          <div class="pad left active" id="vesselPad">Vessel</div>
+          <div class="pad right" id="mirrorPad">Mirror</div>
+          <div class="aim" id="aim"></div>
+          <div class="orb" id="orb"></div>
           <div class="tag" id="tag">turn 1 · drift 0.0</div>
+        </div>
+        <div class="scoreboard">
+          <div class="score"><strong><span>Vessel</span><span id="vesselScore">100%</span></strong><div class="bar"><div class="fill vesselFill" id="vesselFill"></div></div></div>
+          <div class="turnBadge" id="turnBadge">Vessel lens active</div>
+          <div class="score"><strong><span>Mirror</span><span id="mirrorScore">100%</span></strong><div class="bar"><div class="fill mirrorFill" id="mirrorFill"></div></div></div>
         </div>
       </section>
       <section class="controls">
@@ -56,18 +82,46 @@
         <label>Mode <span id="modeText">Ledger Orb</span><select id="mode"><option value="ledger">Ledger Orb</option><option value="phi">Phi Arc</option><option value="janus">Janus Pulse</option></select></label>
       </section>
       <section class="formula">
-        <button id="turnButton">Log Arc</button>
+        <div class="action">
+          <button id="launchButton">Launch Arc</button>
+          <div class="modeNote"><strong id="modeTitle">Ledger Orb</strong><br><span id="modeNote">honest baseline curve</span></div>
+        </div>
         <h2>Formula Lens</h2>
         <p>R = v² · sin(2θ) / g</p>
-        <p id="velocityText">Mode-adjusted velocity: 50.00</p>
-        <p id="rangeText">Clean range estimate: 255.10 arc-units</p>
+        <div class="readout">
+          <div class="chip" id="velocityText">Mode velocity: 50.00</div>
+          <div class="chip" id="rangeText">Clean range: 255.10</div>
+          <div class="chip" id="messageText">Ready. Tune the arc, then launch.</div>
+        </div>
       </section>
     </main>
     <script>
-      const modes = { ledger: { label: 'Ledger Orb', scale: 1, color: '#9efcff' }, phi: { label: 'Phi Arc', scale: 1.18, color: '#ffe66d' }, janus: { label: 'Janus Pulse', scale: 0.86, color: '#ff7de9' } };
-      const state = { turn: 1 };
+      const modes = {
+        ledger: { label: 'Ledger Orb', note: 'honest baseline curve', scale: 1, color: '#9efcff', radius: 70 },
+        phi: { label: 'Phi Arc', note: 'golden long-form drift', scale: 1.18, color: '#ffe66d', radius: 56 },
+        janus: { label: 'Janus Pulse', note: 'mirror-mode double read', scale: 0.86, color: '#ff7de9', radius: 88 }
+      };
+      const state = { turn: 1, active: 'vessel', vessel: 100, mirror: 100, busy: false, drift: 0 };
       const $ = id => document.getElementById(id);
-      function update() {
+      function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
+      function terrainY(stage, x) {
+        const w = stage.clientWidth;
+        const h = stage.clientHeight;
+        const points = [0.38,0.30,0.48,0.20,0.36,0.28,0.50,0.24,0.42,0.28];
+        const t = clamp(x / w, 0, 1) * (points.length - 1);
+        const i = Math.floor(t);
+        const f = t - i;
+        const a = points[i];
+        const b = points[Math.min(i + 1, points.length - 1)];
+        const top = a + (b - a) * f;
+        return h - 150 + top * 150 - 8;
+      }
+      function getPadPoint(name) {
+        const stage = $('stage').getBoundingClientRect();
+        const pad = $(name + 'Pad').getBoundingClientRect();
+        return { x: pad.left - stage.left + pad.width / 2, y: pad.top - stage.top + pad.height / 2 };
+      }
+      function currentValues() {
         const angle = Number($('angle').value);
         const power = Number($('power').value);
         const gravity = Number($('gravity').value);
@@ -75,20 +129,117 @@
         const theta = angle * Math.PI / 180;
         const velocity = power * mode.scale;
         const range = Math.max(0, velocity * velocity * Math.sin(2 * theta) / gravity);
-        const drift = Math.sin(state.turn * 1.618) * 7.5;
-        $('angleText').textContent = angle + '°';
-        $('powerText').textContent = power;
-        $('gravityText').textContent = gravity.toFixed(1);
-        $('modeText').textContent = mode.label;
-        $('velocityText').textContent = 'Mode-adjusted velocity: ' + velocity.toFixed(2);
-        $('rangeText').textContent = 'Clean range estimate: ' + range.toFixed(2) + ' arc-units';
-        $('tag').textContent = 'turn ' + state.turn + ' · drift ' + drift.toFixed(1);
-        $('arc').style.transform = 'rotate(' + (-angle) + 'deg) scaleX(' + (0.7 + power / 120).toFixed(2) + ')';
-        $('arc').style.background = 'linear-gradient(90deg,' + mode.color + ',transparent)';
-        $('arc').style.boxShadow = '0 0 18px ' + mode.color;
+        state.drift = Math.sin(state.turn * 1.618) * 7.5;
+        return { angle, power, gravity, mode, theta, velocity, range };
+      }
+      function update() {
+        const v = currentValues();
+        $('angleText').textContent = v.angle + '°';
+        $('powerText').textContent = v.power;
+        $('gravityText').textContent = v.gravity.toFixed(1);
+        $('modeText').textContent = v.mode.label;
+        $('modeTitle').textContent = v.mode.label;
+        $('modeNote').textContent = v.mode.note;
+        $('velocityText').textContent = 'Mode velocity: ' + v.velocity.toFixed(2);
+        $('rangeText').textContent = 'Clean range: ' + v.range.toFixed(2) + ' arc-units';
+        $('tag').textContent = 'turn ' + state.turn + ' · drift ' + state.drift.toFixed(1);
+        $('vesselScore').textContent = Math.round(state.vessel) + '%';
+        $('mirrorScore').textContent = Math.round(state.mirror) + '%';
+        $('vesselFill').style.width = state.vessel + '%';
+        $('mirrorFill').style.width = state.mirror + '%';
+        $('turnBadge').textContent = (state.active === 'vessel' ? 'Vessel' : 'Mirror') + ' lens active';
+        $('vesselPad').classList.toggle('active', state.active === 'vessel');
+        $('mirrorPad').classList.toggle('active', state.active === 'mirror');
+        const dir = state.active === 'vessel' ? 1 : -1;
+        const origin = getPadPoint(state.active);
+        $('aim').style.left = origin.x + 'px';
+        $('aim').style.top = origin.y - 22 + 'px';
+        $('aim').style.bottom = 'auto';
+        $('aim').style.transform = 'rotate(' + (-dir * v.angle) + 'deg) scaleX(' + (0.75 + v.power / 120).toFixed(2) + ')';
+        $('aim').style.background = 'linear-gradient(90deg,' + v.mode.color + ',transparent)';
+        $('aim').style.boxShadow = '0 0 18px ' + v.mode.color;
+      }
+      function setControls(disabled) {
+        state.busy = disabled;
+        ['angle','power','gravity','mode','launchButton'].forEach(id => $(id).disabled = disabled);
+      }
+      function addGhost(x, y, color) {
+        const dot = document.createElement('div');
+        dot.className = 'ghost';
+        dot.style.left = x + 'px';
+        dot.style.top = y + 'px';
+        dot.style.background = color;
+        $('stage').appendChild(dot);
+        window.setTimeout(() => dot.remove(), 1400);
+      }
+      function addBloom(x, y, color) {
+        const bloom = document.createElement('div');
+        bloom.className = 'bloom';
+        bloom.style.left = x + 'px';
+        bloom.style.top = y + 'px';
+        bloom.style.borderColor = color;
+        bloom.style.boxShadow = '0 0 34px ' + color;
+        $('stage').appendChild(bloom);
+        window.setTimeout(() => bloom.remove(), 900);
+      }
+      function finishArc(x, y, values) {
+        const targetName = state.active === 'vessel' ? 'mirror' : 'vessel';
+        const target = getPadPoint(targetName);
+        const distance = Math.hypot(target.x - x, target.y - y);
+        const closeness = clamp(1 - distance / values.mode.radius, 0, 1);
+        const continuityDrop = Math.round(closeness * (18 + values.power * 0.16));
+        if (targetName === 'mirror') state.mirror = clamp(state.mirror - continuityDrop, 0, 100);
+        else state.vessel = clamp(state.vessel - continuityDrop, 0, 100);
+        addBloom(x, y, values.mode.color);
+        if (continuityDrop > 0) $('messageText').textContent = 'Contact bloom logged: ' + continuityDrop + '% continuity shift.';
+        else $('messageText').textContent = 'Contact bloom logged. No continuity shift.';
+        state.turn += 1;
+        state.active = state.active === 'vessel' ? 'mirror' : 'vessel';
+        if (state.vessel <= 0 || state.mirror <= 0) {
+          const winner = state.vessel > state.mirror ? 'Vessel' : 'Mirror';
+          $('messageText').textContent = winner + ' holds continuity. Reload page for a fresh field.';
+        }
+        update();
+        setControls(false);
+      }
+      function launchArc() {
+        if (state.busy || state.vessel <= 0 || state.mirror <= 0) return;
+        setControls(true);
+        const stage = $('stage');
+        const values = currentValues();
+        const dir = state.active === 'vessel' ? 1 : -1;
+        const start = getPadPoint(state.active);
+        const scaledRange = values.range * 0.9;
+        const endX = clamp(start.x + dir * (scaledRange + state.drift * 7), 28, stage.clientWidth - 28);
+        const endY = terrainY(stage, endX) - 10;
+        const arcHeight = clamp(values.range * 0.18 + values.power * 1.2, 90, 260);
+        const orb = $('orb');
+        orb.style.background = values.mode.color;
+        orb.style.boxShadow = '0 0 26px ' + values.mode.color + ', 0 0 60px ' + values.mode.color;
+        orb.style.opacity = 1;
+        $('messageText').textContent = 'Arc in flight...';
+        const startTime = performance.now();
+        const duration = clamp(980 + values.range * 2.4, 900, 1900);
+        function frame(now) {
+          const t = clamp((now - startTime) / duration, 0, 1);
+          const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+          const x = start.x + (endX - start.x) * ease;
+          const baseY = start.y + (endY - start.y) * ease;
+          const y = baseY - Math.sin(Math.PI * ease) * arcHeight;
+          orb.style.left = x + 'px';
+          orb.style.top = y + 'px';
+          if (Math.round(t * 100) % 8 === 0) addGhost(x, y, values.mode.color);
+          if (t < 1) requestAnimationFrame(frame);
+          else {
+            orb.style.opacity = 0;
+            finishArc(endX, endY, values);
+          }
+        }
+        requestAnimationFrame(frame);
       }
       ['angle','power','gravity','mode'].forEach(id => $(id).addEventListener('input', update));
-      $('turnButton').addEventListener('click', () => { state.turn += 1; update(); });
+      $('launchButton').addEventListener('click', launchArc);
+      window.addEventListener('resize', update);
       update();
     </script>
   </body>
