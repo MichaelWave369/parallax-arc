@@ -1,2 +1,30 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><title>Parallax Arc</title></head><body><h1>Parallax Arc</h1><p>GitHub Pages preview placeholder.</p></body></html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parallax Arc</title>
+    <style>
+      :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; background: #060713; color: #f5fbff; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: radial-gradient(circle at 20% 0%, rgba(67,255,210,.18), transparent 36rem), radial-gradient(circle at 82% 8%, rgba(255,125,233,.14), transparent 32rem), linear-gradient(135deg,#05040d,#0d102c 50%,#12061f); }
+      main { width: min(960px, calc(100vw - 32px)); border: 1px solid rgba(173,255,245,.18); border-radius: 28px; padding: 32px; background: rgba(9,12,31,.72); box-shadow: 0 24px 80px rgba(0,0,0,.35); }
+      .eyebrow { color: #9efcff; text-transform: uppercase; letter-spacing: .16em; font-weight: 800; font-size: .76rem; }
+      h1 { margin: 0; font-size: clamp(3rem, 10vw, 7rem); line-height: .9; letter-spacing: -.06em; }
+      p { color: rgba(245,251,255,.76); font-size: 1.08rem; }
+      .stage { position: relative; min-height: 320px; border-radius: 20px; overflow: hidden; margin-top: 24px; background: linear-gradient(180deg,#07091f 0%,#161145 55%,#241233 100%); }
+      .moon { position: absolute; top: 44px; right: 98px; width: 84px; height: 84px; border: 2px solid #9efcff; border-radius: 50%; box-shadow: 0 0 42px rgba(158,252,255,.35); }
+      .terrain { position: absolute; left: 0; right: 0; bottom: 0; height: 130px; background: linear-gradient(180deg,#43ffd2 0%,#3369ff 16%,#1b0b38 74%,#05040d 100%); clip-path: polygon(0 38%,8% 30%,18% 48%,30% 20%,42% 36%,53% 28%,66% 50%,80% 24%,91% 42%,100% 28%,100% 100%,0 100%); }
+      .arc { position: absolute; left: 14%; bottom: 142px; width: 230px; height: 4px; transform: rotate(-36deg); transform-origin: left center; background: linear-gradient(90deg,#9efcff,transparent); box-shadow: 0 0 18px rgba(158,252,255,.8); }
+      .formula { margin-top: 18px; padding: 18px; border-radius: 18px; background: rgba(255,255,255,.06); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="eyebrow">Parallax Labs / public MIT prototype</div>
+      <h1>Parallax Arc</h1>
+      <p>A neon browser arc game with formula receipts. The React/Vite source is in the repository root.</p>
+      <div class="stage"><div class="moon"></div><div class="arc"></div><div class="terrain"></div></div>
+      <div class="formula">Formula Lens: R = v² · sin(2θ) / g</div>
+    </main>
+  </body>
+</html>
