@@ -11,6 +11,7 @@ It is an original arcade physics project: two local players tune angle, power, a
 - Angle, power, and gravity controls
 - Formula forecast overlay
 - MIT license text in `COPYING`
+- GitHub Pages workflow at `.github/workflows/deploy.yml`
 - Vite config prepared for GitHub Pages with `base: './'`
 
 ## Physics note
@@ -37,15 +38,25 @@ npm run preview
 
 ## GitHub Pages setup
 
-The app is ready for GitHub Pages project hosting. Use GitHub Pages with GitHub Actions, or build locally and publish the generated `dist` folder.
-
-Recommended workflow file path:
+This repo includes a GitHub Actions workflow at:
 
 ```txt
 .github/workflows/deploy.yml
 ```
 
-The workflow should install dependencies, run `npm run build`, upload `dist`, and deploy with GitHub Pages.
+To publish the React/Vite app:
+
+1. Open this repo on GitHub.
+2. Go to **Settings → Pages**.
+3. Under **Build and deployment**, choose **GitHub Actions**.
+4. Open the **Actions** tab.
+5. Run the **Pages** workflow, or push a new commit to `main`.
+
+The workflow installs dependencies, builds the app, uploads `dist`, and deploys it to GitHub Pages.
+
+## Backup static preview
+
+There is also a simple static preview in `/docs`. If Actions are unavailable, GitHub Pages can publish from branch `main` and folder `/docs`.
 
 ## Originality boundary
 
